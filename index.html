@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vuejs study phase1</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1 v-if="show">{{ name }}!!</h1>
+      <h1 v-else>{{ name }}##</h1>
+      <h1 v-once>{{ name }}</h1>
+      <h1 v-pre>{{ name }}</h1>
+      <button @click="dataChange">변경</button>
+      <button @click="showChange">show</button>
+      <div>
+        <input v-model="name" />
+      </div>
+      <ul v-for="list in lists" :key="list.id">
+        <li>{{ list.name }}</li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          name: 'Hello Vue.js',
+          x: 1,
+          y: 2,
+          show: true,
+          lists: [
+            {
+              id: 1,
+              name: '로그인',
+            },
+            {
+              id: 2,
+              name: '즉시이체',
+            },
+            {
+              id: 3,
+              name: '예약이체',
+            },
+            {
+              id: 4,
+              name: '간편이체',
+            },
+          ],
+        },
+        methods: {
+          dataChange: function() {
+            setTimeout(() => {
+              this.x = 11;
+            }, 2000);
+          },
+          showChange: function() {
+            this.show = !this.show;
+          },
+        },
+        watch: {
+          x: function(after, before) {
+            console.log(after, before);
+          },
+        },
+        computed: {
+          changeX: function() {
+            return this.x;
+          },
+        },
+        created: function() {
+          console.log('created');
+        },
+        mounted: function() {
+          console.log('mounted');
+        },
+        updated: function() {
+          console.log('updated');
+        },
+      });
+    </script>
+  </body>
+</html>
